@@ -32,7 +32,8 @@ function JunkRenderer(canvas) {
         drawBackground();
         drawEarth();
         drawSpaceObjects();
-        drawShip();
+        //drawShip();
+        drawTriangleShip();
     };
     
     this.getWidth = function(){
@@ -103,10 +104,40 @@ function JunkRenderer(canvas) {
     
     function drawShip(){
         ctx.fillStyle = "hsl(" + ship.hue + "," + ship.sat + "%," + ship.lit + "%)";
-        ctx.save();
-        ctx.rotate(ship.orientation);
-        ctx.fillRect(ship.x,ship.y,ship.r,ship.r*2);
-        ctx.restore();
+        var theta = degToRad(ship.orientation);
+        var p1 = rotatePoint(ship.x - ship.r,ship.y - ship.r*2,theta,ship.x,ship.y);
+        var p2 = rotatePoint(ship.x + ship.r,ship.y - ship.r*2,theta,ship.x,ship.y);
+        var p3 = rotatePoint(ship.x + ship.r,ship.y + ship.r*2,theta,ship.x,ship.y);
+        var p4 = rotatePoint(ship.x - ship.r,ship.y + ship.r*2,theta,ship.x,ship.y);
+        ctx.beginPath();
+        ctx.moveTo(p1[0],p1[1]);//console.log("Moving to " + p1[0] + "," + p1[1]);        
+        ctx.lineTo(p2[0],p2[1]);//console.log("Line to " + p2[0] + "," + p2[1]);
+        ctx.lineTo(p3[0],p3[1]);//console.log("Line to " + p3[0] + "," + p3[1]);
+        ctx.lineTo(p4[0],p4[1]);//console.log("Line to " + p4[0] + "," + p4[1]);
+        ctx.lineTo(p1[0],p1[1]);//console.log("Line to " + p1[0] + "," + p1[1]);
+        ctx.fill();
+    }
+    
+    function drawTriangleShip(){
+        ctx.fillStyle = "hsl(" + ship.hue + "," + ship.sat + "%," + ship.lit + "%)";
+        var theta = degToRad(ship.orientation);
+        var p1 = rotatePoint(ship.x,ship.y - ship.r*2,theta,ship.x,ship.y);
+        var p2 = rotatePoint(ship.x + ship.r,ship.y + ship.r*2,theta,ship.x,ship.y);
+        var p3 = rotatePoint(ship.x - ship.r,ship.y + ship.r*2,theta,ship.x,ship.y);
+        ctx.beginPath();
+        ctx.moveTo(p1[0],p1[1]);//console.log("Moving to " + p1[0] + "," + p1[1]);        
+        ctx.lineTo(p2[0],p2[1]);//console.log("Line to " + p2[0] + "," + p2[1]);
+        ctx.lineTo(p3[0],p3[1]);//console.log("Line to " + p3[0] + "," + p3[1]);
+        ctx.lineTo(p1[0],p1[1]);//console.log("Line to " + p1[0] + "," + p1[1]);
+        ctx.fill();
+    }
+    
+    function rotatePoint(x,y,theta,cx,cy){
+        var tempx = x - cx;
+        var tempy = y - cy;
+        var rx = tempx * Math.cos(theta) - tempy * Math.sin(theta);
+        var ry = tempx * Math.sin(theta) + tempy * Math.cos(theta);
+        return [rx + cx,ry + cy];
     }
     
 

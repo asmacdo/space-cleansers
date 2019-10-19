@@ -1,4 +1,4 @@
-function SpaceObject(name,desc,x,y,r,hue,sat,lit,mass, xvelocity, yvelocity){
+function SpaceObject(name,desc,x,y,r,hue,sat,lit,mass){
     this.name = name;
     this.dexc = desc;
     this.x = x;
@@ -7,11 +7,10 @@ function SpaceObject(name,desc,x,y,r,hue,sat,lit,mass, xvelocity, yvelocity){
     this.hue = hue;
     this.sat = sat;
     this.lit = lit;
-    this.xvelocity = xvelocity;
-    this.yvelocity = yvelocity;
+    this.xvelocity;
+    this.yvelocity;
     this.mass = mass;
     this.isShip = false;
-
-    this.theta = Math.atan2(this.y, this.x)
-    //console.log("new object " + name + "at:" + x + "," + y);
+    this.mass = mass;
+    //console.log("new object " + name + "at:" + x + "," + y);    
 }

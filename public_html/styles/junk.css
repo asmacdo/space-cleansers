@@ -33,3 +33,7 @@
 #controls button:hover{
     cursor:pointer;
 }
+
+#instructions{
+    padding:8px;
+}
