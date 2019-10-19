@@ -48,16 +48,18 @@ and open the template in the editor.
             //testing some space objects
             var engine = new JunkPhysics();
             var spaceObjects = [];
-            var ship = new SpaceObject("ship", "its the ship", 150, 150, 15, 150, 100, 50, 10);
-            ship.orientation = 45;//the ship has this extra field
+      // spaceObjects.push(new SpaceObject(name, "", x, y, r, hue, sat, lit, 1, xvelocity, yvelocity));
+            var ship = new SpaceObject("ship", "its the ship", 250, 0, 15, 150, 100, 50, 10, 0, 8);
+            ship.orientation = 90;//the ship has this extra field
             ship.pellets = 25; //this works for a starting value for now I guess
-            for (var i = 0; i < 30; i++) {
-                spaceObjects.push(new SpaceObject("", "", random(junkRenderer.getWidth() / -2, junkRenderer.getWidth() / 2), random(junkRenderer.getHeight() / -2, junkRenderer.getHeight() / 2), random(0, 10), random(0, 360), random(50, 100), random(30, 80)), 10);
-            }
+            // for (var i = 0; i < 30; i++) {
+            //     spaceObjects.push(new SpaceObject("", "", random(junkRenderer.getWidth() / -2, junkRenderer.getWidth() / 2), random(junkRenderer.getHeight() / -2, junkRenderer.getHeight() / 2), random(0, 10), random(0, 360), random(50, 100), random(30, 80)), 10);
+            // }
             junkRenderer.update();
-
+            Initialize();
             var game = new GameControl();
             game.play();
+
         </script>
     </body>
 </html>
