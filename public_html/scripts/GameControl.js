@@ -7,7 +7,10 @@ function Initialize(){
     var hue = 100;
     var lit = 50;
     var sat = 50;
-    spaceObjects.push(new SpaceObject(name, "", x, y, r, hue, sat, lit, 1));
+    var xvelocity = 5;
+    var yvelocity = 5;
+    spaceObjects.push(new SpaceObject(name, "", x, y, r, hue, sat, lit, 1, xvelocity, yvelocity));
+
 }
 
 function GameControl(){

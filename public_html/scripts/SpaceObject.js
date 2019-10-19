@@ -1,4 +1,4 @@
-function SpaceObject(name,desc,x,y,r,hue,sat,lit,mass){
+function SpaceObject(name,desc,x,y,r,hue,sat,lit,mass, xvelocity, yvelocity){
     this.name = name;
     this.dexc = desc;
     this.x = x;
@@ -7,8 +7,8 @@ function SpaceObject(name,desc,x,y,r,hue,sat,lit,mass){
     this.hue = hue;
     this.sat = sat;
     this.lit = lit;
-    this.xvelocity;
-    this.yvelocity;
+    this.xvelocity = xvelocity;
+    this.yvelocity = yvelocity;
     this.mass = mass;
     this.isShip = false;
     //console.log("new object " + name + "at:" + x + "," + y);    
