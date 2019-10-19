@@ -2,22 +2,25 @@
 /* global ship */ //the ship, it is from where pellets are fired
 
 function incrementObject(obj){
-    obj.x = (obj.x+obj.xvelocity);
-    obj.y = (obj.y+obj.yvelocity);
 
-    var earthx = junkRenderer.getWidth() / 2;
-    var earthy = junkRenderer.getHeight() / 2;
+    // var earthx = junkRenderer.getWidth() / 2;
+    // var earthy = junkRenderer.getHeight() / 2;
+    //
+    // diff_x = obj.x - earthx
+    // diff_y = obj.x - earthx
+    //
+    radius = Math.sqrt(Math.pow(obj.x, 2) + Math.pow(obj.y, 2))
 
-    diff_x = obj.x - earthx
-    diff_y = obj.x - earthx
-
-    radius = Math.sqrt(Math.pow(diff_x, 2) + Math.pow(diff_y, 2))
-    console.log(radius)
-
-    g_accel = 9.8
-    g_direction = Math.atan(diff_y, diff_x)
+    // console.log(radius)
+    //
+    var KONSTANT = 100000
+    g_accel = KONSTANT / Math.pow(radius, 2)
+    g_direction = Math.atan2(obj.y, obj.x)
     obj.xvelocity = obj.xvelocity - g_accel * Math.cos(g_direction)
     obj.yvelocity = obj.yvelocity - g_accel * Math.sin(g_direction)
+
+    obj.x = (obj.x+obj.xvelocity);
+    obj.y = (obj.y+obj.yvelocity);
 
     // console.log(diff_x)
     // console.log(diff_y)

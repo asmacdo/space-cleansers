@@ -17,21 +17,31 @@ and open the template in the editor.
     </head>
     <body>
         <canvas id="junkCanvas"></canvas>
-        
+
         <div id="sidePanel">
-            
-            
+            <h2>Space Cleanser!</h2>
+
+            <div id="controls">
+            <div>AIM Fine</div>
+            <button onclick="game.aimShip(-1);"><--</button> <button onclick="game.aimShip(1);">--></button>
+            <br/>
+            <div>AIM Coarse</div>
+            <button onclick="game.aimShip(-13);"><--</button> <button onclick="game.aimShip(13);">--></button>
+            <br/><br/>
+            <button onclick="game.firePellet();">Fire Pellet</button>
+            </div>
         </div>
-        
+
         <script>var junkRenderer = new JunkRenderer(document.getElementById("junkCanvas"));</script>
         <script>
             //testing some space objects
             var engine = new JunkPhysics();
             var spaceObjects = [];
-            var ship = new SpaceObject();
+            var ship = new SpaceObject("ship","its the ship",150,150,15,150,100,50,10);
+            ship.orientation = 45;//the ship has this extra field
             junkRenderer.update();
             Initialize();
-            
+
             var game = new GameControl();
             game.play();
         </script>

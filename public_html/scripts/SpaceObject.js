@@ -11,5 +11,7 @@ function SpaceObject(name,desc,x,y,r,hue,sat,lit,mass, xvelocity, yvelocity){
     this.yvelocity = yvelocity;
     this.mass = mass;
     this.isShip = false;
-    //console.log("new object " + name + "at:" + x + "," + y);    
+
+    this.theta = Math.atan2(this.y, this.x)
+    //console.log("new object " + name + "at:" + x + "," + y);
 }

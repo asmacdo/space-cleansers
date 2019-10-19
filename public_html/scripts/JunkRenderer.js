@@ -1,8 +1,8 @@
-/* global spaceObjects */
+/* global spaceObjects, ship */
 
 function JunkRenderer(canvas) {
     var self = this;
-    var ctx = canvas.getContext("2d");
+    var ctx = canvas.getContext("2d");    
     setSizes();
     
     
@@ -20,8 +20,8 @@ function JunkRenderer(canvas) {
     //Earth
     var earthRadius = canvas.width * .1;
     var earthColor = "hsl(220,90%,50%)";
-    var earthXPos = canvas.width / 2;
-    var earthYPos = canvas.height / 2;
+    var earthXPos = 0;
+    var earthYPos = 0;
     //console.log("Earth at " + earthXPos + "," + earthYPos);
     
     var twoPi = 2*Math.PI;
@@ -32,6 +32,7 @@ function JunkRenderer(canvas) {
         drawBackground();
         drawEarth();
         drawSpaceObjects();
+        drawShip();
     };
     
     this.getWidth = function(){
@@ -53,12 +54,13 @@ function JunkRenderer(canvas) {
     function setSizes() {
         canvas.width = canvas.getBoundingClientRect().width;
         canvas.height = canvas.getBoundingClientRect().height;
+        ctx.translate(canvas.width/2,canvas.height/2);
         //console.log("Canvas dimensions:" + canvas.width + "," + canvas.height);
     }
 
     function drawBackground() {
         ctx.fillStyle = backgroundColor;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(canvas.width/-2, canvas.height/-2, canvas.width, canvas.height);
         drawStars();
     }
 
@@ -66,8 +68,8 @@ function JunkRenderer(canvas) {
         var numStars = canvas.width * canvas.height * starFrequency;
         var x,y,hue,sat,lit;
         for (var i = 0; i < numStars; i++) {
-            x = random(0,canvas.width);
-            y = random(0,canvas.height);
+            x = random(canvas.width/-2,canvas.width/2);
+            y = random(canvas.height/-2,canvas.height/2);
             hue = random(starMinHue,starMaxHue);
             sat = starSat;
             lit = random(starMinLit,starMaxLit);
@@ -97,6 +99,14 @@ function JunkRenderer(canvas) {
             ctx.arc(spaceObjects[i].x,spaceObjects[i].y,spaceObjects[i].r,0,twoPi);
             ctx.fill();
         }
+    }
+    
+    function drawShip(){
+        ctx.fillStyle = "hsl(" + ship.hue + "," + ship.sat + "%," + ship.lit + "%)";
+        ctx.save();
+        ctx.rotate(ship.orientation);
+        ctx.fillRect(ship.x,ship.y,ship.r,ship.r*2);
+        ctx.restore();
     }
     
 

@@ -5,5 +5,31 @@
 }
 
 #sidePanel{
-    
+    float:left;
+    width:300px;
+    border:1px solid red;
+    font-family:Helvetica;
+    background-color:black;
+    color:red;
+}
+#sidePanel h2{
+    text-align:center;
+}
+
+#controls{
+    width:100%;
+    text-align:center;
+}
+#controls button{
+    padding:8px;
+    background-color:red;
+    color:black;
+    font-weight:bold;
+    font-size:larger;
+    border:2px solid orangered;
+    border-radius:4px;
+    margin-bottom: 8px;
+}
+#controls button:hover{
+    cursor:pointer;
 }
