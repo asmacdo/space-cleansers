@@ -18,7 +18,7 @@ function JunkRenderer(canvas) {
     var stars = [];
     
     //Earth
-    var earthRadius = canvas.width * .1;
+    var earthRadius = canvas.width * .08;
     var earthColor = "hsl(220,90%,50%)";
     var earthXPos = 0;
     var earthYPos = 0;
@@ -53,6 +53,10 @@ function JunkRenderer(canvas) {
     
     this.getEarthY = function(){
         return earthYPos;
+    };
+    
+    this.getEarthRadius = function(){
+        return earthRadius;
     };
 
     function setSizes() {

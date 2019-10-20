@@ -12,4 +12,5 @@ function SpaceObject(name,desc,x,y,r,hue,sat,lit,mass,xvelocity,yvelocity){
     this.mass = mass;
     this.isShip = false;
     this.mass = mass;
+    this.existedFor = 0;
 }

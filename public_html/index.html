@@ -38,7 +38,7 @@ and open the template in the editor.
                 <br/><br/>
                 <div>Pellet Fire Strength</div>
                 <div id="pelletPowerDiv">
-                    <input id="pelletPower" type="range" min="1" max="100" step="5" value="100" onchange="game.pelletPower(this.value);"></div>
+                    <input id="pelletPower" type="range" min="1" max="100" step="10" value="20" onchange="game.pelletPower(this.value);"></div>
                 <button onclick="game.firePellet();">Fire Pellet</button><br/>Pellets Left: <span id="totalPellets"></span>
                 <br/>Ship Mass: <span id="shipMass"></span>
                 <br/><br/>
@@ -51,14 +51,12 @@ and open the template in the editor.
             //testing some space objects
             var engine = new JunkPhysics();
             var spaceObjects = [];
-
-            var ship = new SpaceObject("ship", "its the ship", 250, 0, 15, 150, 100, 50, 10, 0, 8);
+            var ship = new SpaceObject("ship", "its the ship", 250, 0, 10, 150, 100, 50, 10, 0, 8);
             ship.orientation = 90;//the ship has this extra field
             ship.pellets = 25; //this works for a starting value for now I guess
             ship.pelletPower = 100;
             Initialize();
             junkRenderer.update();
-
             var game = new GameControl();
             game.play();
         </script>

@@ -1,3 +1,7 @@
+body{
+    background-color:gray;
+}
+
 #junkCanvas{
     width:800px;
     height:800px;
