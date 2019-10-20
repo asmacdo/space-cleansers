@@ -14,27 +14,22 @@ function JunkPhysics(){
             incrementObject(spaceObjects[i]);
         }
         incrementObject(ship);
-
-        //do the same for the ship
-
-
     };
 
     this.firePellet = function(theta){
-        // console.log(ship.orientation)
-        delta_v_x = self.pellet_speed * Math.cos(degToRad(ship.orientation + 90))
-        delta_v_y = self.pellet_speed * Math.sin(degToRad(ship.orientation + 90))
+        delta_v_x = (ship.pelletPower / 100) * self.pellet_max_speed * Math.cos(degToRad(ship.orientation + 90))
+        delta_v_y = (ship.pelletPower / 100) * self.pellet_max_speed * Math.sin(degToRad(ship.orientation + 90))
+
+        delta_m_x = (ship.pelletPower / 100) * self.pellet_max_speed * self.pelletMass * Math.cos(degToRad(ship.orientation + 90))
+        delta_m_y = (ship.pelletPower / 100) * self.pellet_max_speed * self.pelletMass * Math.sin(degToRad(ship.orientation + 90))
 
         ship_m_x = ship.mass * ship.xvelocity
         ship_m_y = ship.mass * ship.yvelocity
 
-        delta_m_x = self.pellet_speed * self.pelletMass * Math.cos(degToRad(ship.orientation + 90))
-        delta_m_y = self.pellet_speed * self.pelletMass * Math.sin(degToRad(ship.orientation + 90))
-
         new_m_x = ship_m_x + delta_m_x
         new_m_y = ship_m_y + delta_m_x
 
-        spaceObjects.push(new SpaceObject(name, "", ship.x, ship.y, 5, 100, 50, 50, 1, ship.xvelocity-delta_v_x, ship.yvelocity-delta_v_y));
+        spaceObjects.push(new SpaceObject(name, "", ship.x, ship.y, 5, 100, 50, 50, 10, ship.xvelocity-delta_v_x, ship.yvelocity-delta_v_y));
         ship.xvelocity = new_m_x / ship.mass
         ship.yvelocity = new_m_y / ship.mass
     };
@@ -53,7 +48,6 @@ function Initialize(){
     spaceObjects.push(new SpaceObject(name, "", x, y, r, hue, sat, lit, 1, xvelocity, yvelocity));
 }
 
-
 function incrementObject(obj){
 
     radius = Math.sqrt(Math.pow(obj.x, 2) + Math.pow(obj.y, 2))
@@ -61,11 +55,8 @@ function incrementObject(obj){
     g_accel = KONSTANT / Math.pow(radius, 2)
     g_direction = Math.atan2(obj.y, obj.x)
     obj.xvelocity = obj.xvelocity - g_accel * Math.cos(g_direction)
-    // console.log(obj.xvelocity)
     obj.yvelocity = obj.yvelocity - g_accel * Math.sin(g_direction)
 
     obj.x = (obj.x+obj.xvelocity);
     obj.y = (obj.y+obj.yvelocity);
-    // console.log(obj.x)
 }
-
