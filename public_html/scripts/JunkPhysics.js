@@ -6,13 +6,14 @@ function JunkPhysics() {
     var self = this;
     this.pelletMass = 4;
     this.pellet_max_speed = 2;
+    var tooFar = 2000;
 
 
     this.increment = function (t) {
         //increment through all space objects and update their x and y
         for (var i = 0; i < spaceObjects.length; i++) {
             var collidesWithEarth = collides(junkRenderer.getEarthX(),junkRenderer.getEarthY(),junkRenderer.getEarthRadius(),
-                                             spaceObjects[i].x,spaceObjects[i].y,spaceObjects[i].r);
+                                             spaceObjects[i].x,spaceObjects[i].y,spaceObjects[i].r,true);
             if(collidesWithEarth){
                 spaceObjects.splice(i,1);
             }else{
@@ -20,19 +21,22 @@ function JunkPhysics() {
             }            
         }
         var shipCollidesWithEarth = collides(junkRenderer.getEarthX(),junkRenderer.getEarthY(),junkRenderer.getEarthRadius(),
-                                             ship.x,ship.y,ship.r);
+                                             ship.x,ship.y,ship.r,false);
         if(shipCollidesWithEarth){
             console.log("ship collided with earth");
             game.pause();
             ship.hue = 0;
             junkRenderer.update();
+        }else if(tooFarFromEarth(ship)){
+            console.log("ship out of communications range");
+            game.pause();
         }else{
             //see if ship collides with other things....
             for(var i = 0; i < spaceObjects.length; i++){
-                if(collides(ship.x,ship.y,ship.r,spaceObjects[i].x,spaceObjects[i].y,spaceObjects[i].r) && spaceObjects[i].existedFor > 30){
+                if(collides(ship.x,ship.y,ship.r,spaceObjects[i].x,spaceObjects[i].y,spaceObjects[i].r,false) && spaceObjects[i].existedFor > 30){
                     ship.pellets += spaceObjects[i].mass / self.pelletMass;
                     spaceObjects.splice(i,1);
-                }
+                }                
             }
             incrementObject(ship);            
         }
@@ -71,7 +75,7 @@ function JunkPhysics() {
         obj.existedFor++;
     }
 
-    /**
+    /** 
      * checks for collision between two points by testing their distance and
      * comparing that to the radius
      * @param {number} x1 x coordinate of point 1
@@ -80,20 +84,33 @@ function JunkPhysics() {
      * @param {number} x2 x coordinate of point 2
      * @param {number} y2 y coordinate of point 2
      * @param {number} r2 radius of object 2
-     * @return {boolean}
+     * @return {boolean} true if it the objects collide, or if the object is too far from earth and collideAtDistance is true
      */
-    function collides(x1, y1, r1, x2, y2, r2) {
+    function collides(x1, y1, r1, x2, y2, r2, collideAtDistance) {
         //console.log("checking for collision between " + x1 + "," + y1 + " and " + x2 + "," + y2);
         var distance = Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
+        if(collideAtDistance && distance > tooFar){
+            console.log("object too far from earth");
+            return true;
+        }
         //console.log("distance is "+ distance);
         var radiusSize = r1 + r2;
         //console.log("radius size is " + radiusSize);
         if (distance <= radiusSize) {
-            return true;
-            console.log(x1 + "," + y1 + " collides with " + x2 + "," + y2);
+            //console.log(x1 + "," + y1 + " collides with " + x2 + "," + y2);
+            return true;            
         } else {
             return false;
         }
+    }
+    
+    function tooFarFromEarth(obj){
+        //earth is at 0,0, so this is assumed for now
+        var distance = Math.sqrt(((obj.x)) * (obj.x) + ((obj.y) * (obj.y)));
+        if(distance >= tooFar){
+            return true;
+        }
+        return false;
     }
 }
 
