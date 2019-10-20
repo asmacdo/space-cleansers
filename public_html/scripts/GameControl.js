@@ -2,7 +2,7 @@
 
 function GameControl() {
     var interval;
-    var intervalLength = 30;
+    var intervalLength = 50;
     var paused = false;
 
     this.play = function () {

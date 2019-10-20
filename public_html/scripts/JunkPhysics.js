@@ -90,7 +90,6 @@ function JunkPhysics() {
         //console.log("radius size is " + radiusSize);
         if (distance <= radiusSize) {
             return true;
-            console.log(x1 + "," + y1 + " collides with " + x2 + "," + y2);
         } else {
             return false;
         }
@@ -109,13 +108,13 @@ function Initialize() {
     var yvelocity = 10;
     spaceObjects.push(new SpaceObject(name, "", x, y, r, hue, sat, lit, 1, xvelocity, yvelocity));
     for(var i = 0; i < 1000; i++){
-        x += random(-100,100);
-        y += random(-100,100);
+        x = random(50,300);
+        // y += random(-100,100);
         r = random(3,12);
         hue = random(0,360);
         //xvelocity = random(0,10);
         //yvelocity = random(0,10);
-        spaceObjects.push(new SpaceObject(name, "", x, y, r, hue, sat, lit, 1, xvelocity, yvelocity));
+        spaceObjects.push(new SpaceObject(name, "", x, y, r, hue, sat, lit, 1, xvelocity, yvelocity+random(-5,5)));
     }
 }
 
