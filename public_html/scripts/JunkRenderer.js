@@ -22,11 +22,14 @@ function JunkRenderer(canvas) {
     var earthColor = "hsl(220,90%,50%)";
     var earthXPos = 0;
     var earthYPos = 0;
+    var earthBlobs = [];
+    var numBlobs = earthRadius * 0.3;
     //console.log("Earth at " + earthXPos + "," + earthYPos);
     
     var twoPi = 2*Math.PI;
     
     makeStars();
+    makeEarthBlobs();
     
     this.update = function(){
         drawBackground();
@@ -78,6 +81,14 @@ function JunkRenderer(canvas) {
         }
     }
     
+    function makeEarthBlobs(){
+        for(var i = 0; i < numBlobs; i++){
+            var x = random(earthXPos - earthRadius/2,earthXPos + earthRadius/2);
+            var y = random(earthYPos - earthRadius/2,earthYPos + earthRadius/2);
+            earthBlobs.push(new EarthBlob(x,y,random(3,15)));
+        }
+    }
+    
     function drawStars(){
         for(var i = 0; i < stars.length; i++){
             ctx.fillStyle = "hsl(" + stars[i].hue + "," + starSat + "%," + stars[i].lit + "%)";
@@ -90,6 +101,25 @@ function JunkRenderer(canvas) {
         ctx.beginPath();
         ctx.arc(earthXPos,earthYPos,earthRadius,0,twoPi);
         ctx.fill();
+        
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(earthXPos,earthYPos,earthRadius,degToRad(70),degToRad(110));
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.arc(earthXPos,earthYPos,earthRadius,degToRad(250),degToRad(290));
+        ctx.fill();
+        
+        ctx.fillStyle="green";
+        for(var i = 0; i < earthBlobs.length; i++){
+            ctx.beginPath();
+            ctx.arc(earthBlobs[i].x,earthBlobs[i].y,earthBlobs[i].r,0,twoPi);
+            ctx.fill();
+        }
+        
+        
+        
     }
     
     function drawSpaceObjects(){
@@ -147,6 +177,13 @@ function JunkRenderer(canvas) {
         this.hue = hue;
         this.lit = lit;
         //console.log("Made Star:" + x +"," +y + ":" + hue + "," + starSat + "," + lit);
+    }
+    
+    function EarthBlob(x,y,r){
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        //console.log("EarthBlob " + x + "," + y + " " + r);
     }
 }
 

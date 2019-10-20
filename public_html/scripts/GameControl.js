@@ -2,18 +2,24 @@
 
 function GameControl() {
     var interval;
-    var intervalLength = 20;
+    var intervalLength = 30;
+    var paused = false;
 
     this.play = function () {
         interval = window.setInterval(gameLoop, intervalLength);
+        paused = false;
     };
 
     this.pause = function () {
         window.clearInterval(interval);
+        paused = true;
     };
 
     this.aimShip = function (x) {
         ship.orientation = (ship.orientation + x) % 360;
+        if(paused){
+            junkRenderer.update();
+        }
     };
 
     this.firePellet = function () {
@@ -21,6 +27,11 @@ function GameControl() {
             engine.firePellet(degToRad(ship.orientation));
             ship.pellets--;
         }
+    };
+    
+    this.pelletPower = function(x){
+        ship.pelletPower = x;
+        console.log("PelletPower now " + x);
     };
 
 

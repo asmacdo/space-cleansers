@@ -37,3 +37,12 @@
 #instructions{
     padding:8px;
 }
+
+#pelletPower{
+    width:90%;
+    background:red;
+}
+#pelletPower:hover{
+    opacity:1;
+    cursor:pointer;
+}
